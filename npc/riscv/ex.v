@@ -1,0 +1,15 @@
+
+n AddRtlHeader()
+109     call append(0,"//***********************************************************************")
+110     call append(1,"//    Copyright (c) 2024 Sophgo Technologies.")
+111     call append(2,"//    All Rights Reserved.")
+112     call append(3,"//***********************************************************************")
+113     call append(4,"//-----------------------------------------------------------------------")
+114     call append(5,"// File:        ".expand("%:t"))
+115     call append(6,"// Author:      Tianyang Zhao_01 (tianyang.zhao01@sophgo.com)")
+116     call append(7,"// Created:     ".strftime("%H:%M:%S, %b %d, %Y"))
+117     call append(8,"//-----------------------------------------------------------------------")
+118     call append(9,"// Abstract:    ADD DESCRIPTION HERE")
+119     call append(10,"//")
+120     call append(11,"//-----------------------------------------------------------------------")
+121     echohl WarningMsg | echo "RTL Header added." | e
