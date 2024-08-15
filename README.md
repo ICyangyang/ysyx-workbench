@@ -1,9 +1,19 @@
+@[TOC]
+
 # "一生一芯"工程项目
+-  用于代码托管、笔记托管
+- 实验心得记录
+## 命令行操作
+- 查找名为.git的文件夹：
+find /path/to/search -type d -name .git
+或者
+ls -la | grep .git
+> /path/to/search替换为你想要开始搜索的目录的路径
+> 只想在当前用户的主目录中搜索，可使用~
+> 要在当前目录及其所有子目录中搜索，可以使用：find . -type d -name .git
+  
 
-这是"一生一芯"的工程项目. 通过运行
-```bash
-bash init.sh subproject-name
-```
-进行初始化, 具体请参考[实验讲义][lecture note].
 
-[lecture note]: https://ysyx.oscc.cc/docs/
+## git操作
+1. [git代码流程规范](https://blog.csdn.net/m0_51186267/article/details/131150666)
+2. [github文件夹有白色箭头并且不能打开的解决办法](https://blog.csdn.net/xiebaochun/article/details/114143346)
