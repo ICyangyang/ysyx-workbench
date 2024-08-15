@@ -15,4 +15,5 @@ ls -la | grep .git
 
 
 ## git操作
-https://blog.csdn.net/m0_51186267/article/details/131150666
+1. [git代码流程规范](https://blog.csdn.net/m0_51186267/article/details/131150666)
+2. [github文件夹有白色箭头并且不能打开的解决办法](https://blog.csdn.net/xiebaochun/article/details/114143346)
