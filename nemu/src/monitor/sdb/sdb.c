@@ -19,6 +19,12 @@
 #include <readline/history.h>
 #include "sdb.h"
 
+typedef unsigned int word_t;
+typedef unsigned int vaddr_t;
+
+word_t vaddr_read(vaddr_t addr, int len);
+
+
 static int is_batch_mode = false;
 
 void init_regex();
@@ -53,6 +59,61 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  int step;
+  if (args == NULL) step = 1;
+  else sscanf(args, "%d", &step);
+  cpu_exec(step);
+  return 0;
+}
+
+static int cmd_info(char *args){
+  /*extract the first argument*/
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("Usage: info r (registers) or info w (watchpoints)\n");
+  }else{
+    if (strcmp(arg, "r") == 0) {
+      isa_reg_display();
+    } else if (strcmp(arg, "w") == 0){
+      //todo
+    } else {
+      printf("Usage: info r (registers) or info w (watchpoints)\n");
+    } 
+  }
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char *arg1 = strtok(NULL, " ");
+  if (arg1 == NULL) {
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+  char *arg2 = strtok(NULL, " "); 
+  if (arg2 == NULL) {
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+
+  int n = sscanf(arg1, NULL, 10);
+  vaddr_t expr = sscanf(arg2, NULL, 16);
+  
+  int i, j;
+  for (i = 0; i < n;){
+    printf(ANSI_FMT("%#018x: ", ANSI_FG_CYAN), expr);
+  
+    for (j = 0; i < n && j < 4; i++, j++) {
+      word_t w = vaddr_read(expr, 8);
+      expr += 8;
+      printf("%#018x ", w);
+    }
+   puts("");
+  }
+
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -65,9 +126,14 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "Let the programexcute N instuctions and then suspend the excution,while the N is not given,the default value is 1", cmd_si},
+  {"info","Display the info of register & watchpoint",cmd_info},
+  {"x", "Usage: x N EXPR, Scan the memory from EXPR by N bytes", cmd_x},
+
+
 
 };
-
+  
 #define NR_CMD ARRLEN(cmd_table)
 
 static int cmd_help(char *args) {
